@@ -6,12 +6,10 @@ const controller = require('../controllers/controller');
 router.get('/', controller.renderIndex);
 
 //create new room:
-router.get('/new-room', controller.createNewRoom);
+router.get('/enter-room', controller.enterRoom);
 
-//quick join room:
-router.get('/')
+router.get('/room', controller.renderRoom);
 
-//join specific room:
-
+router.get('/create-room', controller.createNewRoom)
 
 module.exports = router;

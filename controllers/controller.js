@@ -2,7 +2,7 @@ exports.renderIndex = (req,res) =>{
     res.render('index');
 }
 exports.createNewRoom = (req,res) =>{
-    res.render('create-new-room');
+    res.render('create-room');
 }
 exports.enterRoom = (req,res)=>{
     res.render('enter-room');
