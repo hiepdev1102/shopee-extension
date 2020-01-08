@@ -8,7 +8,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Bare - Start Bootstrap Template</title>
+    <title>Shopee Extension</title>
 
     <!-- Bootstrap core CSS -->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -16,7 +16,6 @@
         integrity="sha384-v2Tw72dyUXeU3y4aM2Y0tBJQkGfplr39mxZqlTBDUZAb9BGoC40+rdFCG0m10lXk" crossorigin="anonymous">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/fontawesome.css"
         integrity="sha384-q3jl8XQu1OpdLgGFvNRnPdj5VIlCvgsDQTQB6owSOHWlAurxul7f+JpUOVdAiJ5P" crossorigin="anonymous">
-
 </head>
 
 <body>
@@ -38,12 +37,12 @@
             <div class="col-lg-12 text-center">
                 <h1 class="mt-5">Tiện ích Shopee</h1>
                 <p class="lead">Nhâp mã phòng mà bạn muốn vào: </p>
-                <form action="/enter-room" method="get">
+                
                     <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Nhập mã phòng">
-                        <button type="submit" class="form-control btn btn-primary">Tìm phòng</button>
+                        <input id="txtMaPhong" type="text" class="form-control" placeholder="Nhập mã phòng">
+                        <button id="btnSubmit" class="form-control btn btn-primary">Tìm phòng</button>
                     </div>
-                </form>
+                
             </div>
         </div>
     </div>
@@ -52,7 +51,8 @@
     <!-- Bootstrap core JavaScript -->
     <script src="vendor/jquery/jquery.slim.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
+    <script src="/javascripts/socket.io.js"></script>
+    <script src="javascripts/enter-room.js" ></script>
 </body>
 
 </html>

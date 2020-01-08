@@ -4,7 +4,7 @@ exports.renderIndex = (req,res) =>{
 exports.createNewRoom = (req,res) =>{
     res.render('create-room');
 }
-exports.enterRoom = (req,res)=>{
+exports.enterRoom = (req,res,io)=>{
     res.render('enter-room');
 }
 exports.renderRoom = (req,res) =>{
