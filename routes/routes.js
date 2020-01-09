@@ -53,7 +53,7 @@ router.get('/check-room' ,(req,res,next)=>{
     console.log(req.query);
     if(!req.query.room){
         return res.status(200).send({
-            message: "Yêu cầu nhập mã phòng"
+            message: "Yêu cầu nhập mã phòng",
         });
     }
     else{
@@ -61,13 +61,15 @@ router.get('/check-room' ,(req,res,next)=>{
         Object.keys(_io.sockets.adapter.rooms).forEach(_room =>{
             if(_room === req.query.room){
                 res.status(200).send({
-                    message: "Vào phòng thành công"
+                    message: "Vào phòng thành công",
+                    room_exist: true
                 });
                 return false;
             }
         });
         return res.status(200).send({
-            message: "Không tìm thấy phòng"
+            message: "Không tìm thấy phòng",
+            room_exist: false
         });
     }
 });
