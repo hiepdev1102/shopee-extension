@@ -1,6 +1,6 @@
 //enter room script:
 
-const socket = io.connect(window.location.origin);
+//const socket = io.connect(window.location.origin);
 
 var txtMaPhong = document.getElementById("txtMaPhong");
 var btnSubmit = document.getElementById("btnSubmit");
