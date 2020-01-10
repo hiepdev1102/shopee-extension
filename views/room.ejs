@@ -8,7 +8,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Bare - Start Bootstrap Template</title>
+    <title>Shopee extension</title>
 
     <!-- Bootstrap core CSS -->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -16,10 +16,20 @@
         integrity="sha384-v2Tw72dyUXeU3y4aM2Y0tBJQkGfplr39mxZqlTBDUZAb9BGoC40+rdFCG0m10lXk" crossorigin="anonymous">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/fontawesome.css"
         integrity="sha384-q3jl8XQu1OpdLgGFvNRnPdj5VIlCvgsDQTQB6owSOHWlAurxul7f+JpUOVdAiJ5P" crossorigin="anonymous">
-
+    <script src="javascripts/cookies.js"></script>
+    <script>
+        if (getCookie("room")) {
+            let room = getCookie("room");
+            if (!room) {
+                //->redirect to main page:
+                location.href = "/";
+            }
+        }
+    </script>
 </head>
 
 <body>
+
 
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
@@ -33,7 +43,7 @@
     </nav>
 
     <!-- Page Content -->
-    <%if(page === "room"){%>
+
     <div class="container">
         <div class="row">
             <div class="col-lg-12 text-center">
@@ -45,11 +55,11 @@
             <div class="col-lg-12 text-center">
                 <div class="form-group">
                     <input id="txtCopyLink" type="text" class="form-control" class="form-control" />
-                    <input id="btnCopyLink" style="margin-top: 5px;" type="button" class="form-control btn btn-primary btn-lg"
-                        value="copy" />
+                    <input id="btnCopyLink" style="margin-top: 5px;" type="button"
+                        class="form-control btn btn-primary btn-lg" value="copy" />
 
-                    <input id="btnOutRoom" style="margin-top: 5px;" type="button" class="form-control btn btn-danger btn-lg"
-                        value="Thoát khỏi phòng"/>
+                    <input id="btnOutRoom" style="margin-top: 5px;" type="button"
+                        class="form-control btn btn-danger btn-lg" value="Thoát khỏi phòng" />
                 </div>
             </div>
         </div>
@@ -61,59 +71,14 @@
         </div>
 
     </div>
-    <% } %>
-    <!-- Page Content -->
-    %if(page === "create"){%>
-     <div class="container">
-        <div class="row">
-            <div class="col-lg-12 text-center">
-                <h1 class="mt-5">Tiện ích Shopee</h1>
-                <p class="lead">Nhâp mã phòng mà bạn muốn vào: </p>
-                
-                    <div class="form-group">
-                        <input id="txtMaPhong" type="text" class="form-control" placeholder="Nhập mã phòng">
-                        <button style="margin-top: 5px;" id="btnSubmit" class="form-control btn btn-primary">Tìm phòng</button>
-                    </div>
-                
-            </div>
-        </div>
-    </div>
-    <% } %>
-    <!-- Page Content -->
-    %if(page === "join"){%>
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-12 text-center">
-                <h1 class="mt-5">Tiện ích Shopee</h1>
-                <form>
-                    <div class="form-group">
-                        <label class="lead">Nhập đường link giới thiệu: </label>
-                        <input id="txtLink" type="text" class="form-control" placeholder="Link">
-                        <button id="btnSubmit" style="margin-top: 5px;" class="form-control btn btn-primary">Tạo phòng</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-        <div></div>
-    </div>
-    <% } %>
+
 
     <!-- Bootstrap core JavaScript -->
     <script src="vendor/jquery/jquery.slim.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
     <!-- Custom js-->
-    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.4.1.min.js"></script>
-    
-    <% if(page === "join"){ %>
-    <script src="javascripts/enter-room.js" ></script>
-    <% } %>
-    
-    <% if(page === "create") { %>
-        <script src="https://raw.githubusercontent.com/justaprogrammer/ObjectId.js/master/src/main/javascript/Objectid.js"></script>
-        <script src="javascripts/create-room.js" ></script>
-    <% } %>
-
-
+    <script src="javascripts/socket.io.js"></script>
+    <script src="javascripts/room.js"></script>
 </body>
 
 </html>

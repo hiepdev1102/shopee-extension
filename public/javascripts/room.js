@@ -1,10 +1,3 @@
-function getCookieValue(a) {
-    var b = document.cookie.match('(^|[^;]+)\\s*' + a + '\\s*=\\s*([^;]+)');
-    return b ? b.pop() : '';
-}
-function delete_cookie(name) {
-    document.cookie = name +'=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
-}
 function copyToClipboard(text) {
     window.prompt("Copy to clipboard: Ctrl+C, Enter", text);
 }
@@ -16,23 +9,38 @@ var btnCopyLink = document.getElementById('btnCopyLink');
 var btnOutRoom = document.getElementById('btnOutRoom');
 var currentRoom = document.getElementById('currentRoom');
 
-btnCopyLink.addEventListener('click', ()=>{
+btnCopyLink.addEventListener('click', () => {
     copyToClipboard(txtCopyLink.value);
 });
-btnOutRoom.addEventListener('click', ()=>{
+btnOutRoom.addEventListener('click', () => {
     //->redirect->socket.disconnect->disconnect from room
     //->need to remove cookies
 
-    if(window.confirm('Bạn muốn rời khỏi phòng?')){
+    if (window.confirm('Bạn muốn rời khỏi phòng?')) {
+        eraseCookie("room");
+        eraseCookie("link");
         location.href = "/";
     }
 
 });
 
 //check if join a room before:
-if(getCookieValue("room")){
-    let room = getCookieValue("room");
-    let link = getCookieValue("link");
+if (getCookie("room")) {
+    let room = getCookie("room");
+    console.log(room);
+    let link = getCookie("link");
+    console.log(link);
+    if (!room) {
+        //->redirect to main page:
+        location.href = "/";
+    }
+    else if (!link) {
+        socket.emit('join-room', room);
+    }
+    else{
+        socket.emit('create-room',{room: room, link: link});
+    }
+}
     //currently in some room:
     //-> display room
     //-> display link
@@ -40,26 +48,35 @@ if(getCookieValue("room")){
 
     //need to check if room still exist:
     //--> send request to server:
-    var xhttp = new XMLHttpRequest() || ActiveXObject("Microsoft.XMLHTTP");
-
-    xhttp.onreadystatechange =function() {
-        if(this.readyState == 4 && this.status == 200){
-            //--> server send back 
-            
-            if(this.room_exist){
-                currentRoom.innerText = room;
-                txtCopyLink.value = link;
-                socket.emit('join-room', room);
-            }
-        }
-    }
-    xhttp.open('GET', 'check-room?room='+room, true);
-    xhttp.send();
-
-}
-else{
+    
+else {
     //alert you havent join a room
     //back to main page
+    location.href = "/";
 }
 
 //main page:
+socket.on('join-room', val =>{
+    if(val.status){ 
+    currentRoom.innerText = val.room;
+    txtCopyLink.value = val.link;
+    }
+    else{
+        alert("Vào phòng thất bại");
+        location.href = "/enter-room";
+    }
+});
+socket.on('create-room', val =>{
+    if(val.status){
+        alert("Tạo phòng thành công!");
+        currentRoom.innerText = getCookie("room");
+        txtCopyLink.value = getCookie("link");
+    
+    }
+    else{
+        alert("Tạo phòng thất bại");
+        eraseCookie("room");
+        eraseCookie("link");
+        location.href = "/create-room";
+    }
+});
