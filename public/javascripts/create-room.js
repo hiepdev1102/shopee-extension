@@ -27,8 +27,8 @@ btnSubmit.addEventListener('click', () => {
                     setCookie("room",objectId,1);
                     setCookie('link',txtLink.value,1);
 
-                    alert(objectId);
-                    alert(txtLink.value);
+                    //alert(objectId);
+                    //alert(txtLink.value);
 
                     location.href = "/room";
                 }else{
