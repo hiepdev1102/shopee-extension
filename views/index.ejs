@@ -16,7 +16,12 @@
         integrity="sha384-v2Tw72dyUXeU3y4aM2Y0tBJQkGfplr39mxZqlTBDUZAb9BGoC40+rdFCG0m10lXk" crossorigin="anonymous">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/fontawesome.css"
         integrity="sha384-q3jl8XQu1OpdLgGFvNRnPdj5VIlCvgsDQTQB6owSOHWlAurxul7f+JpUOVdAiJ5P" crossorigin="anonymous">
-
+    <script src="javascripts/cookies.js"></script>
+    <script>
+        eraseCookie("create-room");
+        eraseCookie("room");
+        eraseCookie("link");
+    </script>
 </head>
 
 <body>
@@ -73,7 +78,7 @@
         </div>
     </div>
 
-    <!-- Bootstrap core JavaScript -->
+    <!-- Bootstrap core JavaScript z.substring(z.indexOf('http')) -->
     <script src="vendor/jquery/jquery.slim.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 

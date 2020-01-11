@@ -32,8 +32,8 @@ btnSubmit.addEventListener('click', () => {
 
                     location.href = "/room";
                 }else{
-                    alert(this.status);
-                    alert(this.message);
+                    //alert(this.status);
+                    //alert(this.message);
                     console.log(JSON.parse(this.responseText));
                 }
             }

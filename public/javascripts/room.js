@@ -25,14 +25,14 @@ btnOutRoom.addEventListener('click', () => {
 });
 
 //check if join a room before:
-if (getCookie("room")) {
+if (getCookie("room") ){
     let room = getCookie("room");
-    console.log(room);
     let link = getCookie("link");
-    console.log(link);
-    if (!room) {
-        //->redirect to main page:
-        location.href = "/";
+    let create_room = getCookie("create-room");
+    //if refresh page or something -> create-room to check if user has been in room before:
+    console.log("create-room: "+(create_room === "true"));
+    if(create_room === "true"){
+        socket.emit('join-room', room);
     }
     else if (!link) {
         socket.emit('join-room', room);
@@ -53,6 +53,9 @@ else {
     //alert you havent join a room
     //back to main page
     location.href = "/";
+    eraseCookie("room");
+    eraseCookie("link");
+    eraseCookie("create");
 }
 
 //main page:
@@ -62,8 +65,22 @@ socket.on('join-room', val =>{
     txtCopyLink.value = val.link;
     }
     else{
-        alert("Vào phòng thất bại");
-        location.href = "/enter-room";
+        //if join room failed:
+        //-> room not exist
+        //----> if is creator -> create room again -> (check if link exist)
+        //----> else back to main page 
+        //-> room full
+        //----> alert room full -> back to main page
+        if(getCookie("link")){
+            alert("Khởi tạo lại phòng...");
+            socket.emit('create-room',{room : getCookie("room"), link: getCookie("link")});
+           
+        }
+        else{
+            alert("Vào phòng thất bại");
+            eraseCookie("room");
+            location.href = "/enter-room";
+        }
     }
 });
 socket.on('create-room', val =>{
@@ -71,12 +88,13 @@ socket.on('create-room', val =>{
         alert("Tạo phòng thành công!");
         currentRoom.innerText = getCookie("room");
         txtCopyLink.value = getCookie("link");
-    
+        setCookie("create-room",true,1);
     }
     else{
         alert("Tạo phòng thất bại");
         eraseCookie("room");
         eraseCookie("link");
+        eraseCookie("create-room");
         location.href = "/create-room";
     }
 });
